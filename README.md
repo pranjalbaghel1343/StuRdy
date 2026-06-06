@@ -50,8 +50,12 @@ Hey! This is my submission for the frontend intern challenge. I built a learning
    npm run dev
    ```
 
-## Things I learned
-- Getting Framer Motion to work with Next.js Server Components was tricky, I had to make sure my animation components had `"use client"` at the top so the server doesn't crash.
+## Architecture & Component Split
+I decided to do all the data fetching on the server. I used `app/page.tsx` as a Next.js Server Component to fetch the courses from Supabase. Then, I passed that data down as props to my UI components (like `BentoGrid` and `CourseCard`), which are marked with `"use client"` because they need Framer Motion animations. 
+This architectural choice was really cool because it means the database keys never reach the browser, and the page loads faster!
+
+## Things I learned & Challenges Faced
+- Getting Framer Motion to work with Next.js Server Components was tricky. I learned I had to split my components so that the animations are isolated in `"use client"` files, while the data fetching stays on the server.
 - Chrome has a really weird bug with `backdrop-filter: blur()` that causes backgrounds to shift around on Windows, so I had to use solid dark colors with opacity instead to fix the layout glitches.
 - Building the custom canvas background was hard but taught me a lot about `requestAnimationFrame`!
 
